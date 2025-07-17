@@ -1,0 +1,319 @@
+<!DOCTYPE html> <!-- Define que o documento é HTML5 -->
+<html lang="pt"> <!-- Define o idioma principal da página como português -->
+
+<head>
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura a responsividade em dispositivos móveis -->
+    <title>Envio de Comissão Automática</title> <!-- Título da aba do navegador -->
+    <link rel="stylesheet" href="./styles/send.css"> <!-- Importa o arquivo CSS externo -->
+    <link id="dynamic-favicon" rel="icon" type="image/svg+xml" href="./image/ui-checks.light.svg"> <!-- Ícone padrão do site (modo claro) -->
+</head>
+
+<body>
+    <header>
+        <!-- Cabeçalho principal da página -->
+        <!-- Imagem do logotipo com caminho relativo; 'alt' é o texto alternativo para acessibilidade; class 'logo' permite aplicar estilos específicos via CSS -->
+        <nav class="header-nav">
+            <!-- Início da navegação do cabeçalho -->
+            <a href="#" title="Editar mensagem padrão" id="editMessageBtn">
+                <!-- Link que aciona a edição da mensagem padrão; '#' indica que não redireciona; title mostra dica ao passar o mouse; id é usado no JavaScript -->
+                <!-- Ícone de lápis (editar), usando SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
+                    <!-- SVG define o ícone em formato vetorial; xmlns é o namespace; fill="#fff" pinta o ícone de branco -->
+                    <path d="M3 17.25V21h3.75l11.06-11.06-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" />
+                    <!-- Caminho que desenha o ícone do lápis -->
+                </svg>
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=eduardojunqueira2005@gmail.com" target="_blank" title="Enviar mensagem ao suporte">
+                <!-- Link que abre o Gmail para enviar um e-mail ao suporte; 'target="_blank"' abre em nova aba; 'title' mostra dica ao passar o mouse -->
+                <!-- Ícone de e-mail, também em SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
+                    <!-- Ícone branco (fill="#fff"); tamanho 24x24px -->
+                    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    <!-- Caminho que desenha o ícone do envelope -->
+                </svg>
+            </a>
+        </nav>
+    </header>
+    <main>
+        <!-- Elemento principal do conteúdo da página -->
+        <img id="TitleComin" src="./image/logo/titulo/envioemail-lightmode.png" alt="titulo" />
+        <!-- Imagem com logotipo, usada como título visual no formulário -->
+        <div class="form-box"> <!-- Contêiner principal do formulário -->
+            <h2>Envio de Comissão Automática</h2> <!-- Título do formulário -->
+            <!-- Campo Assunto -->
+            <div>
+                <label for="assunto">Assunto:</label> <!-- Rótulo do campo de assunto -->
+                <input type="text" id="assunto" placeholder="Assunto do e-mail" required>
+                <!-- Campo de texto para o usuário digitar o assunto do e-mail. 'required' obriga o preenchimento -->
+            </div>
+            <!-- Campo Mensagem -->
+            <div>
+                <label for="mensagem">Mensagem:</label> <!-- Rótulo do campo de mensagem -->
+                <textarea id="mensagem" placeholder="Digite a mensagem" required></textarea>
+                <!-- Área de texto para o usuário digitar a mensagem do e-mail. 'required' obriga o preenchimento -->
+            </div>
+            <!-- Botão para preencher a mensagem padrão -->
+            <div>
+                <button type="button" id="defaultMessageButton" class="email-padrao-btn">Email Padrão</button>
+                <!-- Botão que, ao ser clicado, preenche os campos com uma mensagem padrão. Possui classe para estilo e ID para JS -->
+            </div>
+            <!-- Upload de Arquivo -->
+            <div>
+                <label for="arquivo">Upload de Planilha:</label> <!-- Rótulo para o campo de upload de arquivo -->
+                <div class="file-upload"> <!-- Div para aplicar estilo personalizado no upload -->
+                    <label for="arquivo" class="file-label">Selecionar Arquivo</label>
+                    <!-- Rótulo estilizado que age como botão de upload -->
+                    <input type="file" id="arquivo" accept=".xlsx" required>
+                    <!-- Campo de upload de arquivo que aceita apenas arquivos Excel (.xlsx). 'required' obriga seleção -->
+                    <span id="file-name">Nenhum arquivo selecionado</span>
+                    <!-- Texto dinâmico que será atualizado com o nome do arquivo escolhido -->
+                </div>
+                <!-- Botão para enviar o formulário -->
+                <div>
+                    <button type="button" id="sendButton">Enviar</button>
+                    <!-- Botão que dispara o envio dos dados (assunto, mensagem e arquivo) -->
+                </div>
+            </div>
+            <!-- Indicador de carregamento -->
+            <div id="loading" class="loading" style="display:none;">Enviando...</div>
+            <!-- Elemento que aparece durante o envio dos dados (carregando). Inicialmente oculto -->
+            <!-- Mensagem de sucesso -->
+            <div id="successMessage" style="display:none; color: green;">Processo concluído com sucesso!</div>
+            <!-- Mensagem que aparece quando o envio é concluído com sucesso. Oculta por padrão -->
+            <!-- Mensagem de erro -->
+            <div id="errorMessage" style="display:none; color: red;">Erro ao processar. Tente novamente.</div>
+            <!-- Mensagem que aparece se houver falha no envio. Oculta por padrão -->
+        </div>
+        <!-- Modal para editar mensagem padrão, inicialmente escondido -->
+        <div id="modalMessage" class="modal" style="display:none;">
+            <!-- Conteúdo interno do modal -->
+            <div class="modal-content">
+                <!-- Título do modal com ícone de informação -->
+                <h2 id="modal-h2">
+                    Editar Mensagem Padrão
+                    <!-- Ícone com informação, acessível via teclado e leitor de tela -->
+                    <span class="info-icon" tabindex="0" aria-label="Informações">
+                        <!-- Ícone SVG para modo claro -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="info-light" viewBox="0 0 16 16">
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                        </svg>
+                        <!-- Ícone SVG para modo escuro -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="info-dark" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                        </svg>
+                        <!-- Tooltip que aparece ao focar ou passar mouse sobre o ícone -->
+                        <div class="tooltip" role="tooltip" aria-hidden="true">
+                            <!-- Cabeçalho do tooltip -->
+                            <h3>Tags: </h3>
+                            <!-- Explicações das tags disponíveis para uso -->
+                            <b>&lt;mes&gt;</b> : Para que ele retorne automaticamente o mês atual.<br>
+                            <b>&lt;pmes&gt;</b> : Para que ele retorne automaticamente o mês passado.<br>
+                            <b>&lt;ano&gt;</b> : Para que ele retorne automaticamente o ano atual.
+                        </div>
+                    </span>
+                </h2>
+                <!-- Label para campo do assunto do e-mail -->
+                <label for="emailSubject">Assunto:</label>
+                <!-- Campo de texto para inserir o assunto do e-mail -->
+                <input type="text" id="emailSubject" />
+                <!-- Label para campo do corpo da mensagem -->
+                <label for="emailBody">Mensagem:</label>
+                <!-- Área de texto para inserir o corpo da mensagem -->
+                <textarea id="emailBody"></textarea>
+                <!-- Container para os botões do modal -->
+                <div class="modal-buttons">
+                    <!-- Botão para salvar a mensagem editada -->
+                    <button id="saveMessageBtn">Salvar</button>
+                    <!-- Botão para cancelar e fechar o modal -->
+                    <button id="cancelMessageBtn">Cancelar</button>
+                </div>
+                <!-- Espaço para exibir status, mensagens ou erros -->
+                <div id="modalStatus" style="margin-top:10px;"></div>
+            </div>
+        </div>
+        </div>
+    </main>
+    <script>
+        // Atualiza o favicon conforme o tema do sistema (dark/light)
+        function updateFavicon() {
+            const darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches; // Verifica se o modo escuro está ativo
+            const favicon = document.getElementById("dynamic-favicon"); // Seleciona o elemento <link> do favicon
+            if (favicon) {
+                // Altera o ícone dependendo do tema
+                favicon.href = darkMode ? "./image/ui-checks.dark.svg" : "./image/ui-checks.light.svg";
+            }
+        }
+        updateFavicon(); // Executa a função ao carregar a página
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", updateFavicon); // Atualiza o favicon se o usuário mudar o tema do sistema
+        // Atualiza o nome do arquivo selecionado no input de upload
+        document.getElementById("arquivo").addEventListener("change", function () {
+            let fileName = this.files.length > 0 ? this.files[0].name : "Nenhum arquivo selecionado"; // Pega o nome do arquivo ou uma mensagem padrão
+            document.getElementById("file-name").textContent = fileName; // Exibe o nome na tela
+        });
+        const img = document.getElementById('TitleComin'); // Seleciona a imagem do cabeçalho
+        // Atualiza o nome do arquivo de imagem de acordo com o tema
+        function atualizarImagemModoNoturno(isDarkMode) {
+            if (isDarkMode) {
+                img.src = img.src.replace('lightmode', 'darkmode'); // Substitui "lightmode" por "darkmode" no nome da imagem
+            } else {
+                img.src = img.src.replace('darkmode', 'lightmode'); // Substitui "darkmode" por "lightmode"
+            }
+        }
+        const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)'); // Media query para modo escuro
+        atualizarImagemModoNoturno(darkModeQuery.matches); // Atualiza a imagem com  no tema atual
+        darkModeQuery.addEventListener('change', e => {
+            atualizarImagemModoNoturno(e.matches); // Atualiza a imagem se o tema for alterado pelo usuário
+        });
+        // Elementos relacionados à edição da mensagem padrão
+        const editBtn = document.getElementById('editMessageBtn'); // Botão para editar a mensagem
+        const modal = document.getElementById('modalMessage'); // Modal que exibe a mensagem para edição
+        const saveBtn = document.getElementById('saveMessageBtn'); // Botão para salvar a mensagem
+        const cancelBtn = document.getElementById('cancelMessageBtn'); // Botão para cancelar/fechar o modal
+        const statusDiv = document.getElementById('modalStatus'); // Div que exibe status (erro, sucesso, etc.)
+        const inputSubject = document.getElementById('emailSubject'); // Campo de input do assunto
+        const inputBody = document.getElementById('emailBody'); // Campo de textarea do corpo da mensagem
+        // Função que substitui <p/mes> pelo nome do mês anterior
+        function substituirMesPassado(texto) {
+            const dataAtual = new Date(); // Data atual
+            let mesPassado = dataAtual.getMonth() - 1; // Mês anterior
+            let ano = dataAtual.getFullYear(); // Ano atual
+            if (mesPassado < 0) {
+                mesPassado = 11; // Dezembro
+                ano -= 1; // Retrocede o ano
+            }
+            const meses = [
+                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+            ];
+            const mesNome = meses[mesPassado]; // Nome do mês anterior
+            return texto.replace(/<p\/mes>/gi, mesNome); // Substitui todas as ocorrências de <p/mes> por mesNome
+        }
+        // Ao clicar em "Editar mensagem", abrir o modal e carregar o conteúdo original
+        editBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            statusDiv.textContent = "Carregando...";
+            modal.style.display = 'flex'; // Exibe o modal
+            try {
+                const res = await fetch('/mensagem-padrao'); // Busca a mensagem padrão salva no backend
+                if (!res.ok) throw new Error('Erro ao carregar mensagem');
+                const data = await res.json(); // Converte para JSON
+                inputSubject.value = data.assunto || ''; // Preenche o campo de assunto
+                inputBody.value = substituirMesPassado(data.mensagem || ''); // Preenche o corpo da mensagem com mês substituído
+                statusDiv.textContent = ''; // Limpa status
+            } catch (err) {
+                statusDiv.textContent = 'Erro ao carregar mensagem.'; // Exibe erro se falhar
+            }
+        });
+        // Ao clicar em cancelar, fecha o modal
+        cancelBtn.addEventListener('click', () => {
+            modal.style.display = 'none'; // Oculta o modal
+            statusDiv.textContent = ''; // Limpa qualquer mensagem de status
+        });
+        // Ao clicar em salvar mensagem
+        saveBtn.addEventListener('click', async () => {
+            const assunto = inputSubject.value.trim(); // Obtém o valor do campo de assunto e remove espaços extras
+            const mensagem = inputBody.value.trim(); // Obtém o valor do campo de mensagem e remove espaços extras
+            // Verifica se os dois campos foram preenchidos
+            if (!assunto || !mensagem) {
+                showWarning('Assunto e mensagem são obrigatórios.'); // Exibe aviso se algum campo estiver vazio
+                return; // Encerra a função
+            }
+            showWarning('Salvando...'); // Mostra uma mensagem temporária de que está salvando
+            try {
+                // Envia os dados para o backend usando método POST
+                const res = await fetch('/mensagem-padrao', {
+                    method: 'POST', // Método de envio
+                    headers: { 'Content-Type': 'application/json' }, // Define que o corpo será JSON
+                    body: JSON.stringify({ assunto, mensagem }), // Converte os dados para JSON
+                });
+                if (!res.ok) throw new Error('Erro ao salvar'); // Se a resposta não for OK, dispara um erro
+                showSuccess('Mensagem salva com sucesso!'); // Exibe mensagem de sucesso
+                setTimeout(() => {
+                    modal.style.display = 'none'; // Fecha o modal após 1,5s
+                    clearStatus(); // Limpa mensagens de status
+                }, 1500);
+            } catch (err) {
+                showError('Erro ao salvar mensagem.'); // Exibe mensagem de erro se a requisição falhar
+            }
+        });
+        // Envio de e-mail com arquivo e mensagem
+        document.getElementById("sendButton").addEventListener("click", async function () {
+            const assunto = document.getElementById("assunto").value; // Pega o valor do campo "assunto"
+            const mensagem = document.getElementById("mensagem").value; // Pega o valor do campo "mensagem"
+            const arquivo = document.getElementById("arquivo").files[0]; // Pega o primeiro arquivo selecionado
+            // Verifica se todos os campos estão preenchidos
+            if (!assunto || !mensagem || !arquivo) {
+                alert("Por favor, preencha todos os campos e selecione um arquivo."); // Alerta o usuário se faltar algo
+                return; // Encerra a função
+            }
+            const formData = new FormData(); // Cria um objeto FormData (para envio de arquivos)
+            formData.append("assunto", assunto); // Adiciona o assunto
+            formData.append("mensagem", mensagem); // Adiciona a mensagem
+            formData.append("arquivo", arquivo); // Adiciona o arquivo
+            document.getElementById("loading").style.display = "block"; // Exibe o loader/ícone de carregamento
+            try {
+                // Envia os dados para o backend
+                const response = await fetch("http://localhost:3000/enviar-email", {
+                    method: "POST", // Método POST
+                    body: formData // Corpo da requisição com os dados e arquivo
+                });
+                const result = await response.json(); // Converte a resposta em JSON
+                document.getElementById("loading").style.display = "none"; // Esconde o loader
+                if (response.ok) {
+                    document.getElementById("successMessage").style.display = "block"; // Exibe mensagem de sucesso
+                    document.getElementById("errorMessage").style.display = "none"; // Oculta mensagem de erro
+                } else {
+                    // Exibe erro retornado pelo backend ou uma mensagem genérica
+                    document.getElementById("errorMessage").textContent = result.error || "Erro ao enviar e-mail.";
+                    document.getElementById("errorMessage").style.display = "block"; // Mostra mensagem de erro
+                    document.getElementById("successMessage").style.display = "none"; // Oculta mensagem de sucesso
+                }
+            } catch (error) {
+                document.getElementById("loading").style.display = "none"; // Esconde o loader
+                document.getElementById("errorMessage").textContent = "Erro ao conectar ao servidor."; // Erro genérico de rede
+                document.getElementById("errorMessage").style.display = "block"; // Mostra a mensagem
+            }
+        });
+        // Carrega a versão processada da mensagem (com substituições feitas no backend)
+        async function carregarMensagemProcessadaNoFormulario() {
+            try {
+                const res = await fetch('/mensagem-padrao/processada'); // Requisição para buscar a mensagem padrão processada
+                if (!res.ok) throw new Error('Erro ao carregar mensagem processada'); // Erro se a resposta não for OK
+                const data = await res.json(); // Converte a resposta em JSON
+                document.getElementById("assunto").value = data.assunto || ''; // Preenche o campo "assunto"
+                document.getElementById("mensagem").value = data.mensagem || ''; // Preenche o campo "mensagem"
+            } catch (error) {
+                alert('Erro ao carregar a mensagem processada.'); // Alerta em caso de erro
+                console.error(error); // Loga o erro no console
+            }
+        }
+        // Botão que carrega a mensagem padrão no formulário principal
+        document.getElementById("defaultMessageButton").addEventListener("click", carregarMensagemProcessadaNoFormulario); // Quando o botão for clicado, executa a função acima
+        // Limpa as mensagens de status e classes CSS
+        function clearStatus() {
+            statusDiv.textContent = ''; // Limpa o texto da mensagem
+            statusDiv.className = ''; // Remove todas as classes CSS aplicadas
+            statusDiv.classList.remove('visible'); // Remove a classe 'visible' se ainda estiver presente
+        }
+        // Exibe mensagem de sucesso com cor e estilo apropriados
+        function showSuccess(msg) {
+            statusDiv.textContent = msg; // Define o texto da mensagem
+            statusDiv.className = 'success visible'; // Aplica classes CSS para estilizar como "sucesso"
+        }
+        // Exibe mensagem de erro
+        function showError(msg) {
+            statusDiv.textContent = msg; // Define o texto da mensagem
+            statusDiv.className = 'error visible'; // Aplica classes CSS para estilizar como "erro"
+        }
+        // Exibe mensagem de aviso (ex: campos obrigatórios)
+        function showWarning(msg) {
+            statusDiv.textContent = msg; // Define o texto da mensagem
+            statusDiv.className = 'warning visible'; // Aplica classes CSS para estilizar como "aviso"
+        }
+    </script>
+</body>
+
+</html>
+<!-- Desenvolvido por Eduardo Junqueira || contato: eduardojunqueira2005@gmail.com  -->

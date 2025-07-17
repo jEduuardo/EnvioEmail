@@ -1,0 +1,484 @@
+/* ========================== */
+/* RESET CSS                 */
+/* ========================== */
+* {
+  margin: 0; /* Remove todas as margens padrão dos elementos */
+  padding: 0; /* Remove todos os paddings padrão dos elementos */
+  box-sizing: border-box; /* Faz com que width e height incluam padding e borda */
+  font-family: Arial, sans-serif; /* Define a fonte padrão como Arial, com fallback para sans-serif */
+}
+html,
+body {
+  width: 100%; /* Ocupa 100% da largura da tela */
+  height: 100%; /* Ocupa 100% da altura da tela */
+  background-color: #f0f2f5; /* Cor de fundo cinza claro */
+  display: flex; /* Utiliza Flexbox para organizar o conteúdo */
+  flex-direction: column; /* Organiza os elementos filhos em coluna */
+  color: #000; /* Cor do texto padrão: preto */
+}
+/* ========================== */
+/* HEADER                     */
+/* ========================== */
+header {
+  width: 100%; /* Ocupa toda a largura da tela */
+  background-color: #036; /* Cor de fundo azul escuro (#003366) */
+  height: 55px; /* Altura fixa de 55px */
+  padding: 0 20px; /* Espaço interno nas laterais (direita e esquerda) */
+  display: flex; /* Flexbox para alinhar itens horizontalmente */
+  align-items: center; /* Alinha os itens verticalmente ao centro */
+  text-align: left; /* Alinha o conteúdo do texto à esquerda */
+  flex-shrink: 0; /* Impede o header de diminuir de tamanho em layouts flexíveis */
+}
+header .logo {
+  height: 45px; /* Altura máxima da imagem/logo */
+  width: auto; /* Largura ajustada proporcionalmente à altura */
+}
+header h1 {
+  color: #fff; /* Cor do texto branca */
+  font-size: 1.5rem; /* Tamanho da fonte responsiva (1.5 vezes o tamanho base) */
+}
+.header-nav {
+  margin-left: auto; /* Empurra o nav para o lado direito */
+  display: flex; /* Exibe os links como itens flexíveis lado a lado */
+  gap: 15px; /* Espaço de 15px entre os itens */
+  align-items: center; /* Alinha verticalmente os ícones ao centro */
+}
+.header-nav a {
+  display: inline-flex; /* Flexível em linha (ideal para ícones) */
+  align-items: center; /* Alinha os ícones verticalmente ao centro */
+  justify-content: center; /* Centraliza os ícones horizontalmente */
+  width: 36px; /* Largura do botão/link */
+  height: 36px; /* Altura do botão/link */
+  cursor: pointer; /* Altera o cursor ao passar por cima */
+  transition: background-color 0.3s; /* Anima a transição da cor de fundo ao passar o mouse */
+  border-radius: 5px; /* Borda arredondada de 5px */
+}
+.header-nav a:hover {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.15
+  ); /* Cor de fundo semi-transparente ao passar o mouse */
+}
+
+.header-nav svg {
+  display: block; /* Remove espaçamento extra em SVGs */
+}
+/* ========================== */
+/* FORMULÁRIO                 */
+/* ========================== */
+main {
+  align-self: center; /* Centraliza o main horizontalmente dentro do flex container */
+  width: 80%; /* Largura de 80% da tela */
+  max-width: 600px; /* Largura máxima de 600px */
+  padding: 20px; /* Espaçamento interno de 20px */
+  display: grid; /* Usa Grid Layout */
+  justify-content: center; /* Centraliza o conteúdo no eixo horizontal */
+}
+main img {
+  max-width: 50%; /* Largura máxima da imagem: 50% do main */
+  height: auto; /* Altura ajustada automaticamente mantendo proporção */
+  justify-self: center; /* Centraliza a imagem horizontalmente dentro do grid */
+  margin: 30px 0 40px 0; /* Margem superior 30px, inferior 40px */
+}
+.form-box {
+  background: #fff; /* Fundo branco */
+  padding: 20px; /* Espaçamento interno */
+  width: 90%; /* Ocupa 90% da largura do main */
+  max-width: 550px; /* Largura máxima de 550px */
+  border-radius: 8px; /* Arredondamento das bordas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  text-align: center; /* Alinha texto ao centro */
+  color: #000; /* Cor do texto: preto */
+  justify-self: center; /* Centraliza dentro do grid do main */
+}
+.form-box h2 {
+  margin-bottom: 30px; /* Espaço inferior de 30px */
+  font-size: 1.5rem; /* Tamanho grande da fonte */
+  color: #036; /* Azul escuro */
+}
+.form-box div {
+  margin-bottom: 10px; /* Espaço entre os campos */
+  text-align: left; /* Alinha rótulos à esquerda */
+}
+label {
+  display: block; /* Exibe em bloco para ocupar linha toda */
+  font-weight: bold; /* Texto em negrito */
+  margin-bottom: 5px; /* Espaço abaixo do rótulo */
+  color: #333; /* Cor cinza escuro */
+}
+input,
+textarea {
+  width: 100%; /* Ocupa toda a largura do container */
+  padding: 10px; /* Espaço interno */
+  border: 1px solid #ccc; /* Borda cinza clara */
+  border-radius: 5px; /* Borda arredondada */
+  font-size: 1rem; /* Tamanho padrão da fonte */
+  background-color: #fff; /* Fundo branco */
+  color: #000; /* Texto preto */
+}
+textarea {
+  resize: vertical; /* Permite redimensionar verticalmente */
+  min-height: 130px; /* Altura mínima */
+}
+input[type="file"] {
+  display: none; /* Oculta o input padrão de arquivo */
+}
+/* ========================== */
+/* BOTÃO                      */
+/* ========================== */
+button {
+  width: 100%; /* Ocupa toda a largura do container */
+  padding: 10px; /* Espaçamento interno */
+  background: #036; /* Cor de fundo azul escuro */
+  color: #fff; /* Texto branco */
+  font-size: 1rem; /* Tamanho padrão */
+  border: none; /* Sem borda */
+  border-radius: 5px; /* Arredondamento */
+  cursor: pointer; /* Muda o cursor ao passar o mouse */
+  transition: 0.3s; /* Transição suave */
+  margin-top: 20px; /* Espaço acima */
+}
+button:hover {
+  background: #024; /* Cor de fundo mais escura ao passar o mouse */
+}
+/* ========================== */
+/* BOTÃO DE UPLOAD ESTILIZADO */
+/* ========================== */
+.file-upload {
+  position: relative; /* Posição relativa para controle interno */
+  display: flex; /* Flexbox para alinhar o botão e o nome do arquivo */
+  align-items: center; /* Alinha verticalmente */
+  justify-content: space-between; /* Espaço entre elementos */
+  width: 100%; /* Ocupa toda a largura */
+  border-bottom: 1px solid #ccc; /* Linha separadora inferior */
+}
+.file-label {
+  background-color: #217346; /* Verde escuro */
+  color: white; /* Texto branco */
+  padding: 10px 15px; /* Espaçamento interno */
+  border-radius: 5px; /* Arredondamento */
+  cursor: pointer; /* Cursor de mão */
+  transition: background 0.3s; /* Transição suave */
+  font-size: 1rem; /* Tamanho da fonte */
+  font-weight: bold; /* Negrito */
+  text-align: center; /* Centraliza texto */
+  display: inline-block; /* Permite definir largura/altura */
+}
+.file-label:hover {
+  background-color: #1b5e3b; /* Tom mais escuro de verde ao passar o mouse */
+}
+#file-name {
+  font-size: 0.9rem; /* Tamanho levemente menor da fonte */
+  color: #333; /* Cor cinza escuro */
+  text-align: right; /* Alinha texto à direita */
+  flex-grow: 1; /* Ocupa o espaço restante */
+  padding-left: 10px; /* Espaço à esquerda */
+}
+/* ========================== */
+/* MENSAGENS DE STATUS        */
+/* ========================== */
+.loading,
+#successMessage,
+#errorMessage {
+  text-align: center; /* Centraliza o texto */
+  font-weight: bold; /* Texto em negrito */
+  margin-top: 10px; /* Espaçamento acima */
+}
+.loading {
+  color: #036; /* Azul escuro */
+}
+#successMessage {
+  color: green; /* Verde para sucesso */
+}
+#errorMessage {
+  color: red; /* Vermelho para erro */
+}
+/* ========================== */
+/* RESPONSIVIDADE             */
+/* ========================== */
+@media (max-width: 480px) {
+  main {
+    padding: 10px; /* Reduz o padding em telas pequenas */
+  }
+  .form-box {
+    width: 100%; /* Usa toda a largura da tela */
+    padding: 15px; /* Padding menor */
+  }
+  header h1 {
+    font-size: 1.2rem; /* Reduz o tamanho do título */
+  }
+}
+/* ========================== */
+/* BOTÃO "EMAIL PADRÃO"       */
+/* ========================== */
+.email-padrao-btn {
+  width: auto; /* Largura automática */
+  background-color: #003366; /* Azul escuro */
+  color: white; /* Texto branco */
+  padding: 4px 8px; /* Espaço interno */
+  font-size: 0.8rem; /* Tamanho da fonte menor */
+  border-radius: 5px; /* Arredondamento */
+  cursor: pointer; /* Cursor de clique */
+  transition: 0.3s; /* Transição suave */
+  text-align: left; /* Alinha texto à esquerda */
+  margin-top: 0px; /* Sem margem superior */
+  margin-bottom: 30px; /* Espaço inferior */
+}
+.email-padrao-btn:hover {
+  background-color: #002244; /* Tom mais escuro ao passar o mouse */
+}
+/* ========================== */
+/* MODAL                      */
+/* ========================== */
+.modal {
+  position: fixed; /* Fixo na tela inteira */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Fundo escuro semi-transparente */
+  display: flex; /* Flexbox para centralizar */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  z-index: 9999; /* Aparece acima de tudo */
+}
+.modal-content {
+  background: #ffffff; /* Fundo branco */
+  padding: 20px; /* Espaço interno */
+  border-radius: 8px; /* Arredondamento */
+  width: 90%; /* Quase toda a largura da tela */
+  max-width: 500px; /* Largura máxima */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra intensa */
+  color: #333; /* Texto cinza escuro */
+}
+.modal-content h2 {
+  margin-top: 0; /* Remove a margem superior do título (h2) */
+  margin-bottom: 15px; /* Define margem inferior de 15px abaixo do título */
+}
+.modal-content input,
+.modal-content textarea {
+  width: 100%; /* Ocupa toda a largura disponível */
+  margin-bottom: 10px; /* Espaço abaixo de cada campo */
+  padding: 8px; /* Espaço interno (dentro da borda) */
+  border: 1px solid #ccc; /* Borda cinza clara */
+  border-radius: 4px; /* Cantos arredondados */
+}
+.modal-content button {
+  padding: 8px 16px; /* Espaçamento interno: 8px vertical, 16px horizontal */
+  margin-right: 10px; /* Espaço à direita do botão */
+  border: none; /* Remove borda padrão */
+  border-radius: 4px; /* Cantos arredondados */
+  cursor: pointer; /* Cursor de mãozinha ao passar por cima */
+  color: white; /* Cor do texto branca */
+  transition: background-color 0.3s; /* Transição suave ao mudar a cor de fundo */
+}
+.modal-buttons {
+  display: grid; /* Usa grid para layout */
+  grid-template-columns: 1fr 1fr; /* Duas colunas de largura igual */
+  gap: 10px; /* Espaçamento entre colunas */
+  justify-content: center; /* Centraliza o conteúdo */
+  border-bottom: 1px solid #ccc; /* Linha inferior */
+  padding-bottom: 15px; /* Espaço abaixo dos botões */
+}
+.modal-content button#saveMessageBtn {
+  background-color: #218838; /* Cor verde escura */
+}
+.modal-content button#saveMessageBtn:hover {
+  background-color: #28a745; /* Cor verde mais clara ao passar o mouse */
+}
+.modal-content button#cancelMessageBtn {
+  background-color: #b81c2b; /* Cor vermelha escura */
+}
+.modal-content button#cancelMessageBtn:hover {
+  background-color: #ce1f30; /* Cor vermelha mais clara ao passar o mouse */
+}
+#modalStatus {
+  text-align: center; /* Centraliza o texto */
+  font-weight: 600; /* Negrito */
+  margin-top: 10px; /* Espaço acima */
+  padding: 8px; /* Espaço interno */
+  border-radius: 5px; /* Cantos arredondados */
+  font-size: 14px; /* Tamanho da fonte */
+  max-width: 400px; /* Largura máxima */
+  min-height: 30px; /* Altura mínima */
+  margin-left: auto; /* Centraliza horizontalmente */
+  margin-right: auto;
+  color: #eee; /* Cor do texto */
+  overflow-wrap: break-word; /* Quebra palavras longas automaticamente */
+  visibility: hidden; /* Oculta o elemento inicialmente */
+}
+#modalStatus.visible {
+  visibility: visible; /* Torna visível */
+}
+#modalStatus.success {
+  color: #d4f8d4; /* Cor de texto para sucesso */
+  background-color: #218838; /* Fundo verde escuro */
+}
+#modalStatus.error {
+  color: #f9d6d5; /* Cor de texto para erro */
+  background-color: #b81c2b; /* Fundo vermelho escuro */
+}
+#modalStatus.warning {
+  color: #fff; /* Cor do texto */
+  background-color: #f9a830; /* Fundo laranja (aviso) */
+}
+#modal-h2 {
+  display: flex;
+  justify-content: space-between; /* texto à esquerda, ícone à direita */
+  align-items: center; /* alinhamento vertical */
+}
+.info-icon {
+  position: relative; /* para posicionar tooltip */
+  display: inline-flex; /* flex para alinhar verticalmente */
+  align-items: center; /* centraliza verticalmente */
+  margin-left: 8px; /* espaço à esquerda */
+  cursor: help; /* cursor de ajuda */
+  color: #000; /* cor do ícone no modo claro (fallback) */
+}
+.info-icon svg {
+  display: none; /* Esconde todos os ícones SVG por padrão */
+  vertical-align: middle; /* Alinha verticalmente ao meio */
+  color: currentColor; /* Usa a cor atual do texto para o SVG */
+}
+/* Mostrar o ícone correto conforme o modo (exemplo: claro) */
+.info-icon.info-light {
+  display: inline;
+}
+/* Tooltip customizado */
+.tooltip {
+  display: none; /* Inicialmente, o tooltip fica escondido */
+  position: absolute; /* Posicionamento absoluto para aparecer sobre outros elementos */
+  top: 50%; /* Alinha verticalmente ao centro do elemento pai (ícone) */
+  left: 110%; /* Posiciona o tooltip um pouco à direita do ícone */
+  transform: translateY(
+    -50%
+  ); /* Ajusta a posição para centralizar verticalmente exatamente */
+  background-color: #0e0e0e; /* Fundo escuro do tooltip */
+  color: #fff; /* Cor do texto branca para contraste */
+  padding: 10px; /* Espaçamento interno ao redor do texto */
+  border-radius: 6px; /* Cantos arredondados do tooltip */
+  width: max-content; /* Ajusta a largura para caber o conteúdo */
+  white-space: pre-line; /* Mantém quebras de linha e espaços no texto */
+  font-size: 14px; /* Tamanho da fonte */
+  z-index: 100; /* Coloca o tooltip na frente de outros elementos */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidade */
+  padding-top: 0px; /* Remove o espaçamento extra superior (opcional) */
+}
+/* Exibe tooltip ao passar mouse ou focar com teclado */
+.info-icon:hover .tooltip,   /* Quando o mouse está sobre o ícone */
+.info-icon:focus .tooltip {
+  /* Ou quando o ícone recebe foco (teclado) */
+  display: block; /* Mostra o tooltip */
+}
+/* Mostrar o ícone para modo claro */
+@media (prefers-color-scheme: light) {
+  /* Se o tema do sistema for claro */
+  .info-icon {
+    color: #f9a830; /* Define a cor do ícone para um tom amarelo-dourado */
+  }
+  .info-icon .info-light {
+    display: inline; /* Exibe o SVG do ícone para modo claro */
+  }
+}
+/* Mostrar o ícone para modo escuro */
+@media (prefers-color-scheme: dark) {
+  /* Se o tema do sistema for escuro */
+  .info-icon {
+    color: #f9a830; /* Define a cor do ícone para o mesmo amarelo-dourado */
+  }
+  .info-icon .info-dark {
+    display: inline; /* Exibe o SVG do ícone para modo escuro */
+  }
+}
+/* ========================== */
+/* MODO ESCURO AUTOMÁTICO     */
+/* ========================== */
+@media (prefers-color-scheme: dark) {
+  /* Aplica quando o sistema estiver em modo escuro */
+  html,
+  body {
+    background-color: #121212; /* Fundo escuro */
+    color: #e0e0e0; /* Texto claro */
+  }
+  header {
+    background-color: #0d47a1; /* Azul escuro */
+  }
+  .form-box {
+    background-color: #1e1e1e; /* Fundo da caixa de formulário escuro */
+    color: #e0e0e0; /* Texto claro */
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Sombra clara */
+  }
+  .form-box h2 {
+    color: #e0e0e0; /* Cor do título */
+  }
+  label {
+    color: #e0e0e0; /* Cor do rótulo */
+  }
+  input,
+  textarea {
+    background-color: #2a2a2a; /* Fundo mais escuro */
+    border: 1px solid #555; /* Borda escura */
+    color: #e0e0e0; /* Texto claro */
+  }
+  .file-upload {
+    border-bottom: 1px solid #555; /* Linha de separação */
+  }
+  #file-name {
+    color: #ccc; /* Cor clara */
+  }
+  .loading {
+    color: #66b2ff; /* Azul claro para status de carregamento */
+  }
+  #successMessage {
+    color: #4caf50; /* Verde para sucesso */
+  }
+  #errorMessage {
+    color: #ef5350; /* Vermelho para erro */
+  }
+  .file-label {
+    background-color: #1b5e20; /* Verde escuro */
+  }
+  .file-label:hover {
+    background-color: #286d2c; /* Verde mais claro ao passar o mouse */
+  }
+  .email-padrao-btn {
+    background-color: #1a237e; /* Azul escuro */
+  }
+  .email-padrao-btn:hover {
+    background-color: #0d1b60; /* Azul mais escuro ao passar o mouse */
+  }
+  button {
+    background-color: #1a237e; /* Cor de fundo padrão dos botões */
+  }
+  button:hover {
+    background-color: #0d1b60; /* Cor de fundo ao passar o mouse */
+  }
+  .modal {
+    background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+  }
+  .modal-content {
+    background: #1f1f1f; /* Fundo da área do modal */
+    color: #f0f0f0; /* Cor do texto */
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1); /* Sombra suave */
+  }
+  .modal-content input,
+  .modal-content textarea {
+    background: #2c2c2c; /* Fundo mais escuro */
+    color: #f0f0f0; /* Texto claro */
+    border: 1px solid #444; /* Borda escura */
+  }
+  .modal-content button {
+    background-color: #0d6efd; /* Azul padrão */
+    color: white; /* Texto branco */
+    transition: background-color 0.3s; /* Transição suave */
+  }
+  .modal-content button:hover {
+    background-color: #084298; /* Azul mais escuro ao passar o mouse */
+  }
+  .modal-buttons {
+    border-bottom: 1px solid #444; /* Linha separadora mais escura */
+  }
+}
+/* Desenvolvido por Eduardo Junqueira || contato: eduardojunqueira2005@gmail.com */
