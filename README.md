@@ -30,7 +30,7 @@ Este projeto é um sistema de upload e envio de comissão por e-mail para os rep
 ## 📁 Estrutura do Projeto
 
 ```
-enviodeemail/
+envioemail/
 │── node_modules/         # Dependências do projeto
 │── public/               # Interface web (frontend)
 │   ├── image/            # Imagens do projeto: ícone e logos
