@@ -1,5 +1,5 @@
 
-# Envio de Comissão
+# Envio de Comissão Automática
 
 Este projeto é um sistema de upload e envio de comissão por e-mail para os representantes, desenvolvido com **Node.js**. Ele processa uma planilha `.xlsx` contendo dados de comissões, segmenta por código de representante, gera relatórios personalizados e envia automaticamente os arquivos por e-mail.
 
